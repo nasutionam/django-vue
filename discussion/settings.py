@@ -140,6 +140,7 @@ LOGOUT_REDIRECT_URL = "/"
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
 # Custom User Model
 AUTH_USER_MODEL = "users.CustomUser"
 
@@ -155,9 +156,12 @@ ACCOUNT_EMAIL_REQUIRED = (True)
 
 # Django Rest Framework
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.Session  Authentication',
+        'rest_framework.authentication.SessionAuthentication',
 
-    }
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
 }
