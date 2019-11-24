@@ -28,6 +28,7 @@ urlpatterns = [
     path("accounts/", include("django_registration.backends.one_step.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path("api/", include("users.api.urls")),
+    path("api/", include("questions.api.urls")),
     path("api-auth/", include("rest_framework.urls")),
     path("api/rest-auth/", include("rest_auth.urls")),
     path("api/rest-auth/registration/", include("rest_auth.registration.urls")),
