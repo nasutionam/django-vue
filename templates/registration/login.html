@@ -2,7 +2,8 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <h1 class="text-center">Login</h1>
+    <h1 class="text-center">QuestionTime</h1>
+    <p class="lead text-center text-muted">Share your Knowledge!</p>
     <div class="login-form-container">
         <form method="POST">
             {% csrf_token %}
@@ -10,5 +11,6 @@
 
             <button type="submit" class="btn btn-sm btn-success">Login</button>
         </form>
+        <p class="mt-2">Or <a href="{% url 'django_registration_register' %}">Create an Account</a></p>
     </div>
 {% endblock %}

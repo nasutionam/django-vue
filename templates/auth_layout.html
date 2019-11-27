@@ -7,6 +7,9 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>QuestionTime</title>
     <style>
+        html, body {
+            height: 100%;
+        }
         .login-form-container {
             width: 300px;
             margin: auto;
@@ -15,14 +18,28 @@
             width: 500px;
             margin: auto;
         }
+        .outer-area {
+            margin-top: 50px;
+        }
+        #auth-box {
+            border: 2px solid lightgrey;
+            border-radius: 10px;
+            padding-bottom: 25px;
+            padding-top: 25px;
+            width: 600px;
+            margin: auto;
+        }
     </style>
 </head>
 <body>
     
-    <div id="auth-box text-center">
-        {% block content %}
-
-        {% endblock %}
+    <div class="outer-area">
+        <div id="auth-box">
+            {% block content %}
+    
+            {% endblock %}
+        </div>
     </div>
+
 </body>
 </html>
