@@ -2,13 +2,17 @@
   <div class="home">
 
     <div class="container">
-      <div v-for="question in questions" :key="question.pk">
+      <div class="mt-5"></div>
+      <div v-for="question in questions" :key="question.pk" class="bord">
         <p class="mb-0">Posted by:
           <span class="author-name">{{ question.author }}</span>
         </p>
-        <h2> {{ question.content }}</h2>
-        <p>Answers: {{ question.answers_count }}</p>
-        <hr>
+       <p class="cont">{{ question.content }}</p>
+        <p>Answers: {{ question.answers_count }} 
+          <span class="float-right">
+             <router-link :to="{ name: 'question', params: {slug: question.slug } }" class="btn btn-success btn-sm">Detail</router-link>
+          </span>
+        </p>
       </div>
     </div>
 
@@ -27,7 +31,7 @@ export default {
   },
   methods: {
     getQuestions() {
-      let endpoint = "api/questions/";  
+      let endpoint = "/api/questions/";  
       apiService(endpoint)
         .then(data => {
           this.questions.push(...data.results)
@@ -35,7 +39,8 @@ export default {
     }
   },
   created() {
-      this.getQuestions()
+      this.getQuestions();
+      document.title = "Discussion";
     }
 
 };
@@ -44,6 +49,16 @@ export default {
 <style>
   .author-name {
     font-weight: bold;
-    color: red;
+    color: #28a745;
+  }
+  .bord {
+    border: 1px solid #DDD;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .cont {
+    margin-top: 20px;
+    color: gray;
   }
 </style>
