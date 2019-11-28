@@ -7,7 +7,7 @@
                 <ul class="navbar-nav mr-auto">                
                 </ul>
                 <router-link :to="{ name: 'home' }" class="btn btn-info">Home</router-link>
-                 <router-link :to="{ name: 'about' }" class="btn btn-success mx-1">About</router-link>
+                 <router-link :to="{ name: 'home' }" class="btn btn-success mx-1">Add Question</router-link>
                 <a class="btn btn-danger my-2 my-sm-0" href="/accounts/logout/">Logout</a>
                 
             </div>
