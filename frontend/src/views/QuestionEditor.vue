@@ -27,6 +27,10 @@ export default {
                 this.error = "You cannot send an empty question!";
             } else if (this.question_body.length > 240) {
                 this.error = "Ensure this field no more than 240 chareacters";
+            } else if(this.question_body.key === 'Space') {
+                this.error = "Ohh try to add another words";
+            } else if (this.question_body === null) {
+                this.error = "Oops just a space?"
             } else {
                 let endpoint = "/api/questions/";
                 let method = "POST";
