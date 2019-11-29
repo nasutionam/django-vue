@@ -11,7 +11,7 @@ from .serializers import AnswerSerializer, QuesitonSerializer
 
 
 class QuestionViewSet(viewsets.ModelViewSet):
-    queryset = Question.objects.all()
+    queryset = Question.objects.all().order_by("-created_at")
     lookup_field = "slug"
     serializer_class = QuesitonSerializer
     permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
