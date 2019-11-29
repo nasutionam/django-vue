@@ -9,13 +9,20 @@
                 </p>
                 <p> <small> {{ question.created_at }} </small></p>
             </div>
-            
+            <div>
+                <p v-if="anyAnswer" class="mt-5" style="margin-left: 13px; color: gray;">The answers...</p>
+                <p v-else class="mt-5" style="margin-left: 13px; color: gray;">No answer...</p>
+
+
+                <AnswerComponent v-for="(answer, index) in answers" :key="index" :answer="answer" />
+            </div>
         </div>    
     </div>
 </template>
 
 <script>
 import { apiService } from "../common/api.service";
+import AnswerComponent from "@/components/Answer.vue";
 
 export default {
     name: "Question",
@@ -25,9 +32,15 @@ export default {
             required: true
         }
     },
+    components: {
+         AnswerComponent
+    },
+
     data() {
         return  {
-            question: {}
+            question: {},
+            answers: [],
+            anyAnswer: true
         }
     },
     methods: {
@@ -43,11 +56,22 @@ export default {
                     this.question = data;
                     this.setPageTitle(data.content);
                 })
+        },
+        getQuestionAnswers() {
+            let endpoint = `/api/questions/${this.slug}/answers/`;
+            apiService(endpoint)
+                .then(data => {
+                    this.answers = data.results;
+                    if(this.answers.length <= 0 ){
+                        this.anyAnswer = false;
+                    }
+                })
         }
     },
     created() {
-        this.getQuestionData()
-        console.log(this.question)
+        this.getQuestionData();
+        this.getQuestionAnswers();
+        console.log(this.question);
     }
 }
 </script>
@@ -63,4 +87,5 @@ export default {
     margin-top: 20px;
     color: gray;
   }
+  
 </style>
