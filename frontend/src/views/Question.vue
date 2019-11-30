@@ -37,6 +37,10 @@
 
 
                 <AnswerComponent v-for="(answer, index) in answers" :key="index" :answer="answer" />
+                <div class="my-4 text-center">
+                    <p v-show="loadingAnswers">Loading...</p>
+                    <button v-show="next" @click="getQuestionAnswers" class="btn btn-primary">Load More</button>
+                </div>
             </div>
         </div>    
     </div>
@@ -66,7 +70,9 @@ export default {
             newAnswerBody: null,
             error: null,
             userHasAnswered: false,
-            showForm: false
+            showForm: false,
+            next: null,
+            loadingAnswers: false
         }
     },
     methods: {
@@ -86,9 +92,20 @@ export default {
         },
         getQuestionAnswers() {
             let endpoint = `/api/questions/${this.slug}/answers/`;
+            if(this.next) {
+                endpoint = this.next;
+            }
+            this.loadingAnswers = true;
             apiService(endpoint)
                 .then(data => {
-                    this.answers = data.results;
+                    this.answers.push(...data.results);
+                    this.loadingAnswers = false;
+                    if (data.next) {
+                        this.next = data.next;
+                    } else {
+                        this.next = null;
+                    }
+
                     if(this.answers.length <= 0 ){
                         this.anyAnswer = false;
                     }
