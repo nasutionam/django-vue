@@ -152,7 +152,7 @@ AUTH_USER_MODEL = "users.CustomUser"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # djano-contrib-sites
-SITE_ID = 1
+SITE_ID = 2
 
 # Django allauth
 ACCOUNT_EMAIL_VERIFICATION = "none"
