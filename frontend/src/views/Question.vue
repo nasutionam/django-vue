@@ -1,7 +1,7 @@
 <template>
     <div class="single-question mt-2"> 
     <div class="mt-5"></div>
-        <div class="container">
+        <div class="container" v-if="question">
             <div class="bord">
                 <div class="row">
                     <div class="col-md-6">
@@ -49,7 +49,7 @@
                 <p v-else class="mt-5" style="margin-left: 13px; color: gray;">No answer...</p>
 
 
-                <AnswerComponent v-for="(answer, index) in answers" :key="index" :answer="answer" :requestUser="requestUser"
+                <AnswerComponent v-for="answer in answers" :key="answer.id" :answer="answer" :requestUser="requestUser"
                 @delete-answer="deleteAnswer" />
                 <div class="my-4 text-center">
                     <p v-show="loadingAnswers">Loading...</p>
@@ -111,9 +111,15 @@ export default {
             let endpoint = `/api/questions/${this.slug}/`;
             apiService(endpoint)
                 .then(data => {
-                    this.question = data;
-                    this.userHasAnswered = data.user_has_answered;
-                    this.setPageTitle(data.content);
+                    if(data){
+                        this.question = data;
+                        this.userHasAnswered = data.user_has_answered;
+                        this.setPageTitle(data.content);
+                    } else {
+                        this.question = null;
+                        this.setPageTitle("404 Page not Found")
+                    }
+                    
                 })
         },
         getQuestionAnswers() {

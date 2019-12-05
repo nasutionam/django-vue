@@ -14,7 +14,7 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" @click="onChangePass">Change Password</a>
-                        <a class="dropdown-item" href="/accounts/logout/">Logout</a>
+                        <a class="dropdown-item" @click="logOut">Logout</a>
                         
                     </div>
                 </div>
@@ -34,6 +34,13 @@ export default {
     },
     
     methods: {
+        loadPage() {
+
+        },
+        logOut() {
+            location.href = '/accounts/logout/';  
+                     
+        },
         onChangePass () {
         
             location.href = '/accounts/password_change/'
