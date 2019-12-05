@@ -7,7 +7,11 @@
             <p>{{ answer.body }} </p>
             <p><small>{{ answer.created_at }} </small></p>
             <div v-if="isAnswerAuthor">
-                <button class="btn btn-sm btn-primary">Edit</button>
+                    <router-link
+                    :to="{ name: 'answer-editor', params: { id: answer.id } }"
+                    class="btn btn-sm btn-outline-secondary mr-1"
+                    >Edit
+                  </router-link>
                 <button @click="triggerDeleteAnswer" class="btn btn-sm btn-danger">Delete</button>
             </div>
         </div>
