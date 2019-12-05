@@ -8,8 +8,16 @@
                 </ul>
                 <router-link :to="{ name: 'home' }" class="btn btn-info">Home</router-link>
                 <router-link :to="{ name: 'question-editor' }" class="btn btn-success mx-1">Ask Question</router-link>
-                <a class="btn btn-primary my-2 my-sm-0 mx-1" @click="onChangePass">Change Password</a>
-                <a class="btn btn-danger my-2 my-sm-0" href="/accounts/logout/">Logout</a>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Welcome, {{ username }}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" @click="onChangePass">Change Password</a>
+                        <a class="dropdown-item" href="/accounts/logout/">Logout</a>
+                        
+                    </div>
+                </div>
                 
             </div>
         </div>
@@ -19,6 +27,12 @@
 <script>
 export default {
     name: "NavbarComponent",
+    data() {
+        return {
+            username: window.localStorage.getItem("username"),
+        }
+    },
+    
     methods: {
         onChangePass () {
         
