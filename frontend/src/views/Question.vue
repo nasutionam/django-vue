@@ -36,7 +36,8 @@
                 <p v-else class="mt-5" style="margin-left: 13px; color: gray;">No answer...</p>
 
 
-                <AnswerComponent v-for="(answer, index) in answers" :key="index" :answer="answer" />
+                <AnswerComponent v-for="(answer, index) in answers" :key="index" :answer="answer" :requestUser="requestUser"
+                @delete-answer="deleteAnswer" />
                 <div class="my-4 text-center">
                     <p v-show="loadingAnswers">Loading...</p>
                     <button v-show="next" @click="getQuestionAnswers" class="btn btn-primary">Load More</button>
@@ -72,13 +73,18 @@ export default {
             userHasAnswered: false,
             showForm: false,
             next: null,
-            loadingAnswers: false
+            loadingAnswers: false,
+            requestUser: null
         }
     },
     methods: {
 
         setPageTitle(title){
             document.title = title;
+        },
+
+        setRequestUser() {
+            this.requestUser = window.localStorage.getItem("username");
         },
 
         getQuestionData() {
@@ -127,12 +133,24 @@ export default {
             } else {
                 this.error = "You cannot send an empty message";
             }
+        },
+        async deleteAnswer(answer) {
+            let endpoint = `/api/answers/${answer.id}/`;
+            try {
+                await apiService(endpoint, "DELETE");
+                this.$delete(this.answers, this.answers.indexOf(answer));
+                this.userHasAnswered = false;
+            } catch (err) {
+                console.log(error);
+            }
+
         }
     },
     created() {
         this.getQuestionData();
         this.getQuestionAnswers();
         console.log(this.question);
+        this.setRequestUser();
     }
 }
 </script>

@@ -6,6 +6,10 @@
             </p>
             <p>{{ answer.body }} </p>
             <p><small>{{ answer.created_at }} </small></p>
+            <div v-if="isAnswerAuthor">
+                <button class="btn btn-sm btn-primary">Edit</button>
+                <button @click="triggerDeleteAnswer" class="btn btn-sm btn-danger">Delete</button>
+            </div>
         </div>
     </div>
 </template>
@@ -17,8 +21,22 @@ export default {
         answer: {
             type: Object,
             required: true
+        },
+        requestUser: {
+            type: String,
+            required: true
         }
-    }
+    },
+    computed: {
+        isAnswerAuthor() {
+            return this.answer.author === this.requestUser;
+        }
+    },
+    methods: {
+        triggerDeleteAnswer() {
+            this.$emit("delete-answer", this.answer)
+        }
+    },
 }
 </script>
 
