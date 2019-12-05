@@ -3,7 +3,20 @@
     <div class="mt-5"></div>
         <div class="container">
             <div class="bord">
-                <h2> {{ question.content }} </h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2> {{ question.content }} </h2>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-right">
+                            <QuestionActions 
+                                v-if="isQuestionAuthor" :slug="question.slug"
+                            />
+                        </div>
+                        
+                    </div>
+                </div>
+
                 <p class="mb-0">Posted by:
                     <span class="author-name">{{ question.author }}</span>
                 </p>    
@@ -50,6 +63,7 @@
 <script>
 import { apiService } from "../common/api.service";
 import AnswerComponent from "@/components/Answer.vue";
+import QuestionActions from "@/components/QuestionActions.vue";
 
 export default {
     name: "Question",
@@ -60,7 +74,8 @@ export default {
         }
     },
     components: {
-         AnswerComponent
+         AnswerComponent,
+         QuestionActions
     },
 
     data() {
@@ -75,6 +90,11 @@ export default {
             next: null,
             loadingAnswers: false,
             requestUser: null
+        }
+    },
+    computed: {
+        isQuestionAuthor() {
+            return this.question.author === this.requestUser;
         }
     },
     methods: {
