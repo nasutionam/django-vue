@@ -25,7 +25,7 @@ SECRET_KEY = 'c&@e*8w^^=p89*%tajs(-^alr4md#%je80ft=huxxj(w7jxoio'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['lorem.local']
 
 
 # Application definition
