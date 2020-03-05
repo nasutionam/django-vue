@@ -25,7 +25,7 @@ SECRET_KEY = 'c&@e*8w^^=p89*%tajs(-^alr4md#%je80ft=huxxj(w7jxoio'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['lorem.local']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -64,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'discussion.urls'
@@ -90,14 +91,21 @@ WSGI_APPLICATION = 'discussion.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'discussion',
+#         'USER': 'dbnam',
+#         'PASSWORD': 'lorem',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'discussion',
-        'USER': 'dbnam',
-        'PASSWORD': 'lorem',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -146,9 +154,11 @@ LOGOUT_REDIRECT_URL = "/"
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "assets"),
+    # os.path.join(BASE_DIR, "assets"),
     os.path.join(BASE_DIR, "frontend/dist")
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, "frontend/dist")
 
 # Custom User Model
 AUTH_USER_MODEL = "users.CustomUser"
