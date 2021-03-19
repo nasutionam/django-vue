@@ -9,7 +9,7 @@ django-crispy-forms==1.8.0
 django-registration==3.0.1
 django-rest-auth==0.9.5
 django-webpack-loader==0.6.0
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 idna==2.8
 isort==4.3.21
 lazy-object-proxy==1.4.3
